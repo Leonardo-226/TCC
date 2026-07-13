@@ -1,0 +1,56 @@
+hss:
+  enabled: false
+mme:
+  enabled: false
+pcrf:
+  enabled: false
+sgwc:
+  enabled: false
+sgwu:
+  enabled: false
+amf:
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+  config:
+    guamiList:
+      - plmn_id:
+          mcc: "999"
+          mnc: "70"
+        amf_id:
+          region: 2
+          set: 1
+    taiList:
+      - plmn_id:
+          mcc: "999"
+          mnc: "70"
+        tac: [1]
+    plmnList:
+      - plmn_id:
+          mcc: "999"
+          mnc: "70"
+        s_nssai:
+          - sst: 1
+upf:
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+  containerSecurityContext:
+    privileged: true
+    runAsUser: 0
+    runAsGroup: 0
+populate:
+  enabled: true
+  initCommands:
+    - open5gs-dbctl add_ue_with_slice 999700000000001 \
+      465B5CE8B199B49FAA5F0A2EE238A6BC \
+      E8ED289DEBA952E4283B54E88E6183CA internet 1 0x111111
+    # ... até 999700000000020 (20 UEs total)
